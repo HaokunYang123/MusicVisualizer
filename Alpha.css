@@ -1,0 +1,11 @@
+/* Make the canvas fill the screen with a black background */
+body {
+    margin: 0;
+    overflow: hidden;
+    background: #000;
+  }
+  
+  canvas {
+    display: block;
+  }
+  
