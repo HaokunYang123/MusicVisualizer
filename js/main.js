@@ -2,10 +2,13 @@
 const canvas = document.getElementById('canvas');
 const ctx = canvas.getContext('2d');
 
+console.log('Canvas initialized:', canvas);
+
 // Set up canvas dimensions
 function resizeCanvas() {
   canvas.width = window.innerWidth;
   canvas.height = window.innerHeight;
+  console.log('Canvas resized:', canvas.width, canvas.height);
 }
 resizeCanvas();
 window.addEventListener('resize', resizeCanvas);
@@ -45,6 +48,7 @@ function createBalls() {
       ]
     });
   }
+  console.log('Balls created:', balls.length);
 }
 
 // Create the 5D cube (penteract) vertices and edges
@@ -79,6 +83,7 @@ function createCube() {
       }
     }
   }
+  console.log('Cube created:', cubeVertices.length, 'vertices,', cubeEdges.length, 'edges');
 }
 
 // --- 5D Rotation Functions ---
@@ -110,19 +115,19 @@ function rotatePlane(v, i, j, angle) {
 // 2. From 4D to 3D using the 4th coordinate (index 3)
 // 3. From 3D to 2D using the 3rd coordinate (index 2)
 function project(v) {
-  const d5 = 400, d4 = 400, d3 = 400;
-  const factor5 = d5 / (d5 - v[4]);
+  const d5 = 800, d4 = 800, d3 = 800; // Increased projection distances
+  const factor5 = d5 / (d5 - v[4] + 400);
   const x4 = v[0] * factor5;
   const y4 = v[1] * factor5;
   const z4 = v[2] * factor5;
   const w4 = v[3] * factor5;
   
-  const factor4 = d4 / (d4 - w4);
+  const factor4 = d4 / (d4 - w4 + 400);
   const x3 = x4 * factor4;
   const y3 = y4 * factor4;
   const z3 = z4 * factor4;
   
-  const factor3 = d3 / (d3 - z3);
+  const factor3 = d3 / (d3 - z3 + 400);
   const x2d = x3 * factor3;
   const y2d = y3 * factor3;
   
@@ -158,8 +163,8 @@ function draw() {
   const time = Date.now();
   
   // Draw the rotating 5D cube edges
-  ctx.strokeStyle = 'rgba(255, 255, 255, 0.3)';
-  ctx.lineWidth = 1;
+  ctx.strokeStyle = 'rgba(255, 255, 255, 0.5)'; // Made lines more visible
+  ctx.lineWidth = 2; // Thicker lines
   const projectedVertices = cubeVertices.map(v => {
     const rotated = rotate5d(v, time);
     const proj = project(rotated);
@@ -175,26 +180,32 @@ function draw() {
   }
   
   // Draw the 100 balls
+  ctx.fillStyle = 'rgba(255, 0, 0, 0.8)'; // More visible red
   for (let ball of balls) {
     const rotatedPos = rotate5d(ball.pos, time);
     const projPos = project(rotatedPos);
     const x = projPos[0] + canvas.width / 2;
     const y = projPos[1] + canvas.height / 2;
     ctx.beginPath();
-    ctx.arc(x, y, 5, 0, Math.PI * 2);
-    ctx.fillStyle = 'red';
+    ctx.arc(x, y, 8, 0, Math.PI * 2); // Larger balls
     ctx.fill();
   }
 }
 
 // --- Main Loop ---
 function loop() {
-  updatePhysics();
-  draw();
-  requestAnimationFrame(loop);
+  try {
+    updatePhysics();
+    draw();
+    requestAnimationFrame(loop);
+  } catch (error) {
+    console.error('Animation error:', error);
+  }
 }
 
 // Initialize everything and start the loop
+console.log('Starting initialization...');
 createBalls();
 createCube();
+console.log('Starting animation loop...');
 loop(); 
