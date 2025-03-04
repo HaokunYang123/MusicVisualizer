@@ -3,11 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>5D Cube Visualizer</title>
-    <link rel="stylesheet" href="/styles/style.css">
+    <title>Music Visualizer</title>
+    <link rel="stylesheet" href="style.css"> <!-- Assumes style.css is in the same directory -->
 </head>
 <body>
     <div id="loading">Loading visualization...</div>
+    <button id="startButton">Start Visualizer</button> <!-- Button to start the visualizer -->
     <canvas id="canvas"></canvas>
     <script>
         // Show loading message and handle errors
@@ -20,7 +21,6 @@
                 }, 1000);
             }
         });
-        // Basic error logging
         window.onerror = (msg, url, lineNo, columnNo, error) => {
             console.error('Error:', msg, 'Line:', lineNo, 'Details:', error);
             const loading = document.getElementById('loading');
@@ -30,6 +30,6 @@
             }
         };
     </script>
-    <script src="/js/main.js" defer></script>
+    <script src="main.js" defer></script> <!-- Assumes main.js is in the same directory -->
 </body>
 </html>

@@ -195,17 +195,18 @@ function drawParticles() {
     });
 }
 
-// Start the visualizer
-async function startVisualizer() {
-    await setupAudio();
-    createParticles();
-    function animate() {
-        updateParticles();
-        drawParticles();
-        requestAnimationFrame(animate);
+// Start the visualizer when the button is clicked
+document.getElementById('startButton').addEventListener('click', async () => {
+    try {
+        await setupAudio();
+        createParticles();
+        function animate() {
+            updateParticles();
+            drawParticles();
+            requestAnimationFrame(animate);
+        }
+        animate();
+    } catch (error) {
+        console.error('Error starting visualizer:', error);
     }
-    animate();
-}
-
-// Run it and handle errors
-startVisualizer().catch(error => console.error('Error:', error));
+});
