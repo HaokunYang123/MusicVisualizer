@@ -4,13 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>5D Cube Visualizer</title>
-    <link rel="stylesheet" href="styles/style.css">
+    <link rel="stylesheet" href="/styles/style.css">
 </head>
 <body>
     <div id="loading">Loading visualization...</div>
     <canvas id="canvas"></canvas>
     <script>
-        // Show loading message
+        // Show loading message and handle errors
         window.addEventListener('load', () => {
             console.log('Page loaded');
             const loading = document.getElementById('loading');
@@ -20,7 +20,16 @@
                 }, 1000);
             }
         });
+        // Basic error logging
+        window.onerror = (msg, url, lineNo, columnNo, error) => {
+            console.error('Error:', msg, 'Line:', lineNo, 'Details:', error);
+            const loading = document.getElementById('loading');
+            if (loading) {
+                loading.textContent = 'Error loading visualization. Check console.';
+                loading.style.display = 'block';
+            }
+        };
     </script>
-    <script src="js/main.js" defer></script>
+    <script src="/js/main.js" defer></script>
 </body>
-</html> 
+</html>
