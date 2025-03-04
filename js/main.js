@@ -197,4 +197,4 @@ function loop() {
 // Initialize everything and start the loop
 createBalls();
 createCube();
-loop();
+loop(); 

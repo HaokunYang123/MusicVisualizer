@@ -1,0 +1,18 @@
+/* Reset default styles and ensure full viewport coverage */
+body {
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background: #000;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Canvas styling */
+canvas {
+    display: block;
+    background: transparent;
+} 
