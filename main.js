@@ -35,6 +35,7 @@ function createParticles() {
 // Set up audio from the microphone
 async function setupAudio() {
     audioContext = new AudioContext();
+    await audioContext.resume(); // Resume the AudioContext after user gesture
     const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
     const source = audioContext.createMediaStreamSource(stream);
     analyser = audioContext.createAnalyser();
@@ -206,6 +207,7 @@ document.getElementById('startButton').addEventListener('click', async () => {
             requestAnimationFrame(animate);
         }
         animate();
+        document.getElementById('startButton').style.display = 'none'; // Hide button after starting
     } catch (error) {
         console.error('Error starting visualizer:', error);
     }

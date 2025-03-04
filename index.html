@@ -4,32 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Music Visualizer</title>
-    <link rel="stylesheet" href="style.css"> <!-- Assumes style.css is in the same directory -->
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div id="loading">Loading visualization...</div>
-    <button id="startButton">Start Visualizer</button> <!-- Button to start the visualizer -->
+    <button id="startButton">Start Visualizer</button>
     <canvas id="canvas"></canvas>
-    <script>
-        // Show loading message and handle errors
-        window.addEventListener('load', () => {
-            console.log('Page loaded');
-            const loading = document.getElementById('loading');
-            if (loading) {
-                setTimeout(() => {
-                    loading.style.display = 'none';
-                }, 1000);
-            }
-        });
-        window.onerror = (msg, url, lineNo, columnNo, error) => {
-            console.error('Error:', msg, 'Line:', lineNo, 'Details:', error);
-            const loading = document.getElementById('loading');
-            if (loading) {
-                loading.textContent = 'Error loading visualization. Check console.';
-                loading.style.display = 'block';
-            }
-        };
-    </script>
-    <script src="main.js" defer></script> <!-- Assumes main.js is in the same directory -->
+    <script src="main.js" defer></script>
 </body>
 </html>
