@@ -3,11 +3,33 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Fish School Music Visualizer</title>
-    <link rel="stylesheet" href="style.css">
+    <title>5D Cube Visualizer</title>
+    <link rel="stylesheet" href="/styles/style.css">
 </head>
 <body>
+    <div id="loading">Loading visualization...</div>
     <canvas id="canvas"></canvas>
-    <script src="main.js"></script>
+    <script>
+        // Show loading message and handle errors
+        window.addEventListener('load', () => {
+            console.log('Page loaded');
+            const loading = document.getElementById('loading');
+            if (loading) {
+                setTimeout(() => {
+                    loading.style.display = 'none';
+                }, 1000);
+            }
+        });
+        // Basic error logging
+        window.onerror = (msg, url, lineNo, columnNo, error) => {
+            console.error('Error:', msg, 'Line:', lineNo, 'Details:', error);
+            const loading = document.getElementById('loading');
+            if (loading) {
+                loading.textContent = 'Error loading visualization. Check console.';
+                loading.style.display = 'block';
+            }
+        };
+    </script>
+    <script src="/js/main.js" defer></script>
 </body>
 </html>
